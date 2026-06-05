@@ -1,0 +1,81 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Ikonex Academy API",
+  "dateExport": "2026-06-05T00:00:00.000Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "signup-admin",
+      "colId": "ikonex-academy",
+      "name": "Sign Up - Admin",
+      "url": "{{baseUrl}}/api/auth/sign-in",
+      "method": "POST",
+      "sortNum": 1,
+      "created": "2026-06-05T00:00:00.000Z",
+      "modified": "2026-06-05T00:00:00.000Z",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Admin User\",\n  \"email\": \"admin@ikonex.com\",\n  \"password\": \"Admin@123\",\n  \"role\": \"admin\"\n}"
+      },
+      "tests": [],
+      "note": "Sign up a new admin user"
+    },
+    {
+      "_id": "signup-user",
+      "colId": "ikonex-academy",
+      "name": "Sign Up - Regular User",
+      "url": "{{baseUrl}}/api/auth/sign-in",
+      "method": "POST",
+      "sortNum": 2,
+      "created": "2026-06-05T00:00:00.000Z",
+      "modified": "2026-06-05T00:00:00.000Z",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@ikonex.com\",\n  \"password\": \"Test@123\",\n  \"role\": \"user\"\n}"
+      },
+      "tests": [],
+      "note": "Sign up a new regular user"
+    },
+    {
+      "_id": "signin",
+      "colId": "ikonex-academy",
+      "name": "Sign In",
+      "url": "{{baseUrl}}/api/auth/sign-in",
+      "method": "POST",
+      "sortNum": 3,
+      "created": "2026-06-05T00:00:00.000Z",
+      "modified": "2026-06-05T00:00:00.000Z",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"admin@ikonex.com\",\n  \"password\": \"Admin@123\"\n}"
+      },
+      "tests": [],
+      "note": "Sign in with admin credentials"
+    }
+  ],
+  "variables": [
+    {
+      "name": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}

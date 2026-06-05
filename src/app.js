@@ -4,6 +4,9 @@ import helmet from "helmet";
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import authRoutes from '#modules/authentication/auth.routes.js';
+import userRoutes from '#modules/users/users.routes.js';
+
 
 const app = express();
 
@@ -32,5 +35,9 @@ app.get('/health', (req, res) => {
 app.get('/api', (req, res) => {
     res.status(200).json({ message: 'Ikonex Academy API is working' });
 });
+
+// routes
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 export default app;
