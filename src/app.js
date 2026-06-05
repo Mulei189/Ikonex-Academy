@@ -6,7 +6,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from '#modules/authentication/auth.routes.js';
 import userRoutes from '#modules/users/users.routes.js';
-
+import classStreamsRoutes from '#modules/class-streams/class-streams.routes.js';
 
 const app = express();
 
@@ -39,5 +39,5 @@ app.get('/api', (req, res) => {
 // routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-
+app.use('/api/class-streams', classStreamsRoutes);
 export default app;
