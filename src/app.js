@@ -9,6 +9,7 @@ import userRoutes from '#modules/users/users.routes.js';
 import classStreamsRoutes from '#modules/class-streams/class-streams.routes.js';
 import studentsRoutes from '#modules/students/students.routes.js';
 import subjectsRoutes from '#modules/subjects/subjects.routes.js';
+import assessmentsRoutes from "#modules/assessments/assessments.routes.js";
 
 const app = express();
 
@@ -44,4 +45,5 @@ app.use('/api/users', userRoutes);
 app.use('/api/class-streams', classStreamsRoutes);
 app.use('/api/students', studentsRoutes);
 app.use('/api/subjects', subjectsRoutes);
+app.use("/api/assessments", assessmentsRoutes);
 export default app;
