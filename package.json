@@ -3,6 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "imports": {
+    "#config/*": "./src/config/*",
+    "#middlewares/*": "./src/middlewares/*",
+    "#utils/*": "./src/utils/*",
+    "#auth/*": "./src/modules/auth/*",
+    "#users/*": "./src/modules/users/*",
+    "#students/*": "./src/modules/students/*",
+    "#class-streams/*": "./src/modules/class-streams/*",
+    "#subjects/*": "./src/modules/subjects/*",
+    "#assessments/*": "./src/modules/assessments/*",
+    "#scores/*": "./src/modules/scores/*",
+    "#results/*": "./src/modules/results/*",
+    "#reports/*": "./src/modules/reports/*"
+  },
   "scripts": {
     "dev": "node --watch src/index.js",
     "lint": "eslint .",
@@ -32,9 +46,14 @@
   "homepage": "https://github.com/Mulei189/Ikonex-Academy#readme",
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "helmet": "^8.2.0",
+    "morgan": "^1.11.0",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
