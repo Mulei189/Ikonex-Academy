@@ -6,7 +6,8 @@ class ClassStreamsController {
     // Create a new class stream
     async create(req, res, next) {
       console.log("BODY:", req.body); // Debugging: log the incoming request body
-        try {
+      console.log("CLASS STREAM ID:", req.params.classStreamId); // Debugging: log the class stream ID from the URL parameters  
+      try {
             // Validate the request body using Zod schema
             const validation = createClassStreamSchema.safeParse(req.body);
             console.log("VALIDATION RESULT:", validation); // Debugging: log the validation result

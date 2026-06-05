@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from '#modules/authentication/auth.routes.js';
 import userRoutes from '#modules/users/users.routes.js';
 import classStreamsRoutes from '#modules/class-streams/class-streams.routes.js';
+import studentsRoutes from '#modules/students/students.routes.js';
 
 const app = express();
 
@@ -40,4 +41,5 @@ app.get('/api', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/class-streams', classStreamsRoutes);
+app.use('/api/students', studentsRoutes);
 export default app;
