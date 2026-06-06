@@ -7,9 +7,16 @@ import {
     uuid,
 } from 'drizzle-orm/pg-core';
 
-export const classStreams = pgTable('class_streams', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    name: varchar('name', { length: 255 }).notNull().unique(),
-    created_at: timestamp('created_at').defaultNow().notNull(),
-    updated_at: timestamp('updated_at').defaultNow().notNull(),
-})
+export const classStreams = pgTable(
+  "class_streams",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    streamCode: varchar("stream_code", { length: 20 })
+      .unique()
+      .notNull(),
+
+    name: varchar("name", {length: 100,}).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  }
+);

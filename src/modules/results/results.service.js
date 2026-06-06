@@ -5,6 +5,7 @@ import { db } from "#config/database.js";
 import { students } from "../students/students.models.js";
 import { subjects } from "../subjects/subjects.models.js";
 import { assessments } from "../assessments/assessments.models.js";
+import { classStreams } from "../class-streams/class-streams.models.js";
 
 import gradingScalesService from "../grading-scale/grading-scales.service.js";
 
@@ -168,8 +169,17 @@ class ResultsService {
    * Get all results for a class stream
    */
   async getClassResults(
-    classStreamId
+    classStreamIdOrCode
   ) {
+    // Try to resolve by stream code first
+    let classStream = await db
+      .select()
+      .from(classStreams)
+      .where(eq(classStreams.streamCode, classStreamIdOrCode));
+
+    // If not found as code, assume it's a UUID
+    const resolvedClassStreamId = classStream.length > 0 ? classStream[0].id : classStreamIdOrCode;
+
     const classStudents =
       await db
         .select()
@@ -177,7 +187,7 @@ class ResultsService {
         .where(
           eq(
             students.classStreamId,
-            classStreamId
+            resolvedClassStreamId
           )
         );
 

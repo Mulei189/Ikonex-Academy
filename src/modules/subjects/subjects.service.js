@@ -80,15 +80,25 @@ class SubjectsService {
       subjectCode,
     } = data;
 
-    const stream = await sql`
-      SELECT id FROM class_streams WHERE id = ${classStreamId} LIMIT 1
+    // Try to resolve by stream code first
+    let stream = await sql`
+      SELECT id FROM class_streams WHERE stream_code = ${classStreamId} LIMIT 1
     `;
+
+    // If not found as code, assume it's a UUID
+    if (stream.length === 0) {
+      stream = await sql`
+        SELECT id FROM class_streams WHERE id = ${classStreamId} LIMIT 1
+      `;
+    }
 
     if (stream.length === 0) {
       throw new Error(
         "Class stream not found"
       );
     }
+
+    const resolvedClassStreamId = stream[0].id;
 
     const subject = await sql`
       SELECT id FROM subjects WHERE code = ${subjectCode} LIMIT 1
@@ -102,7 +112,7 @@ class SubjectsService {
 
     const existingAssignment = await sql`
       SELECT id FROM class_stream_subjects 
-      WHERE class_stream_id = ${classStreamId} AND subject_id = ${subject[0].id}
+      WHERE class_stream_id = ${resolvedClassStreamId} AND subject_id = ${subject[0].id}
       LIMIT 1
     `;
 
@@ -114,7 +124,7 @@ class SubjectsService {
 
     const result = await sql`
       INSERT INTO class_stream_subjects (class_stream_id, subject_id)
-      VALUES (${classStreamId}, ${subject[0].id})
+      VALUES (${resolvedClassStreamId}, ${subject[0].id})
       RETURNING id, class_stream_id, subject_id, created_at, updated_at
     `;
 
@@ -122,7 +132,21 @@ class SubjectsService {
   }
 
   //   get subjects by class stream
-  async getSubjectsByClassStream(classStreamId) {
+  async getSubjectsByClassStream(classStreamIdOrCode) {
+    // Try to resolve by stream code first
+    let stream = await sql`
+      SELECT id FROM class_streams WHERE stream_code = ${classStreamIdOrCode} LIMIT 1
+    `;
+
+    // If not found as code, assume it's a UUID
+    if (stream.length === 0) {
+      stream = await sql`
+        SELECT id FROM class_streams WHERE id = ${classStreamIdOrCode} LIMIT 1
+      `;
+    }
+
+    const resolvedClassStreamId = stream.length > 0 ? stream[0].id : classStreamIdOrCode;
+
     return await sql`
       SELECT 
         s.id,
@@ -130,7 +154,7 @@ class SubjectsService {
         s.name
       FROM class_stream_subjects css
       INNER JOIN subjects s ON css.subject_id = s.id
-      WHERE css.class_stream_id = ${classStreamId}
+      WHERE css.class_stream_id = ${resolvedClassStreamId}
       ORDER BY s.name
     `;
   }

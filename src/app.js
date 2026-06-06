@@ -12,7 +12,7 @@ import subjectsRoutes from '#modules/subjects/subjects.routes.js';
 import assessmentsRoutes from "#modules/assessments/assessments.routes.js";
 import gradingScaleRoutes from "#modules/grading-scale/grading-scale.routes.js";
 import resultsRoutes from "#modules/results/results.routes.js"
-
+import reportsRoutes from "#modules/reports/reports.routes.js"
 
 const app = express();
 
@@ -51,4 +51,5 @@ app.use('/api/subjects', subjectsRoutes);
 app.use("/api/assessments", assessmentsRoutes);
 app.use("/api/grading-scales", gradingScaleRoutes);
 app.use("/api/results", resultsRoutes);
+app.use("/api/reports", reportsRoutes);
 export default app;

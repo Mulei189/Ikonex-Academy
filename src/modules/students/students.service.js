@@ -72,12 +72,23 @@ class StudentsService {
   }
 
 //   Get student by class stream
-  async getByClassStream(classStreamId) {
-    return await db
+  async getByClassStream(classStreamIdOrCode) {
+    // Try to resolve the parameter as a stream code first
+    const classStream = await db
+      .select()
+      .from(classStreams)
+      .where(eq(classStreams.streamCode, classStreamIdOrCode));
+
+    // If not found as a code, assume it's a UUID and use it directly
+    const streamId = classStream.length > 0 ? classStream[0].id : classStreamIdOrCode;
+
+    const students_result = await db
       .select()
       .from(students)
-      .where(eq(students.classStreamId, classStreamId));
-    logger.info(`Fetched students with class stream ID: ${classStreamId}`);
+      .where(eq(students.classStreamId, streamId));
+    
+    logger.info(`Fetched students with class stream: ${classStreamIdOrCode}`);
+    return students_result;
   }
 
 //   Update student by admission number

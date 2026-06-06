@@ -12,6 +12,6 @@ export const updateSubjectSchema = z.object({
 });
 
 export const assignSubjectSchema = z.object({
-  classStreamId: z.uuid(),
+  classStreamId: z.string(),
   subjectCode: z.string().trim(),
 });

@@ -43,6 +43,13 @@
       "when": 1780718112341,
       "tag": "0005_careless_bucky",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1780721813644,
+      "tag": "0006_careful_shotgun",
+      "breakpoints": true
     }
   ]
 }
