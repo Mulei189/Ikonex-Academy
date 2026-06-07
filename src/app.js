@@ -51,7 +51,7 @@ app.use('/api/students', studentsRoutes);
 app.use('/api/subjects', subjectsRoutes);
 app.use("/api/assessments", assessmentsRoutes);
 app.use("/api/grading-scales", gradingScaleRoutes);
-app.use("/api/results", resultsRoutes);
+app.use("/api/results",  resultsRoutes);
 app.use("/api/reports", reportsRoutes);
 
 // 404 handler
