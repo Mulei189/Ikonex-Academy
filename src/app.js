@@ -13,6 +13,7 @@ import assessmentsRoutes from "#modules/assessments/assessments.routes.js";
 import gradingScaleRoutes from "#modules/grading-scale/grading-scale.routes.js";
 import resultsRoutes from "#modules/results/results.routes.js"
 import reportsRoutes from "#modules/reports/reports.routes.js"
+import { errorHandler, notFoundHandler } from '#middlewares/error.middleware.js'
 
 const app = express();
 
@@ -52,4 +53,11 @@ app.use("/api/assessments", assessmentsRoutes);
 app.use("/api/grading-scales", gradingScaleRoutes);
 app.use("/api/results", resultsRoutes);
 app.use("/api/reports", reportsRoutes);
+
+// 404 handler
+app.use(notFoundHandler);
+
+// Error handling middleware (must be last)
+app.use(errorHandler);
+
 export default app;

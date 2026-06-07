@@ -29,7 +29,7 @@ class ClassStreamService {
                 const streams = await db
                     .select()
                     .from(classStreams)
-                    .orderBy(asc(classStreams.created_at))
+                    .orderBy(asc(classStreams.createdAt))
                     .limit(limit)
                     .offset(offset);
                     logger.info(`Fetched class streams - Page: ${page}, Limit: ${limit}`);
@@ -43,7 +43,7 @@ class ClassStreamService {
     // Get a single class stream by ID
     async getById(id) {
         try {
-            const stream = await db
+            const [stream] = await db
                 .select()
                 .from(classStreams)
                 .where(eq(classStreams.id, id));
@@ -60,7 +60,7 @@ class ClassStreamService {
             .update(classStreams)
             .set({
                 ...data,
-                updated_at: new Date(),
+                updatedAt: new Date(),
             })
             .where(eq(classStreams.id, id))
             .returning();

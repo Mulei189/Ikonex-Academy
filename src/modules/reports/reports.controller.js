@@ -15,6 +15,13 @@ class ReportsController {
       const { admissionNumber } =
         req.params;
 
+      if (!admissionNumber) {
+        return res.status(400).json({
+          success: false,
+          message: "Admission number is required",
+        });
+      }
+
       const filePath =
         await reportsService.generateStudentReport(
           admissionNumber
@@ -25,9 +32,10 @@ class ReportsController {
         `${admissionNumber}-report-card.pdf`
       );
     } catch (error) {
+      console.error("Error generating student report:", error);
       return res.status(400).json({
         success: false,
-        message: error.message,
+        message: error.message || "Failed to generate student report",
       });
     }
   }
@@ -46,6 +54,13 @@ class ReportsController {
       const { classStreamId } =
         req.params;
 
+      if (!classStreamId) {
+        return res.status(400).json({
+          success: false,
+          message: "Class stream ID is required",
+        });
+      }
+
       const filePath =
         await reportsService.generateClassReport(
           classStreamId
@@ -56,9 +71,10 @@ class ReportsController {
         `${classStreamId}-class-report.pdf`
       );
     } catch (error) {
+      console.error("Error generating class report:", error);
       return res.status(400).json({
         success: false,
-        message: error.message,
+        message: error.message || "Failed to generate class report",
       });
     }
   }

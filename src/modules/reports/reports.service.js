@@ -19,6 +19,10 @@ class ReportsService {
         admissionNumber
       );
 
+    if (!result.subjects || result.subjects.length === 0) {
+      throw new Error("Student has no assessment records. Please record assessments before generating a report.");
+    }
+
     const rank =
       await resultsService.getStudentRank(
         admissionNumber
@@ -279,6 +283,10 @@ class ReportsService {
       await resultsService.getClassPositions(
         resolvedClassStreamId
       );
+
+    if (!positions || positions.length === 0) {
+      throw new Error("Class has no student results. Please record assessments before generating a report.");
+    }
 
     const reportsDir = path.join(
       process.cwd(),
